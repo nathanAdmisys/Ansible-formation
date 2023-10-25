@@ -1,15 +1,14 @@
 - name: Installer Tomcat et déployer sample.war
-  hosts: 192.168.56.11
+  hosts: all
   tasks:
     - name: Installer Tomcat
-      become: yes
       apt:
         name: tomcat9  # Utilisez le gestionnaire de paquets approprié pour votre système
         state: present
 
     - name: Copier le fichier WAR
       copy:
-        src: C:\Users\Administrateur\Downloads\TP1
+        src: sample.war
         dest: /var/lib/tomcat9/webapps/sample.war
       notify: Redémarrer Tomcat
 
