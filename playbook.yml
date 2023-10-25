@@ -1,5 +1,5 @@
 - name: Installer Tomcat et déployer sample.war
-  hosts: localhost
+  hosts: 192.168.56.11
   tasks:
     - name: Installer Tomcat
       become: yes
