@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Configuration
+tower_base_url="https://votre-serveur-awx.com/api/v2/"
+username="votre_utilisateur"
+password="votre_mot_de_passe"
+user_id=123  # Remplacez ceci par l'ID de l'utilisateur
+new_password="nouveau_mot_de_passe"
+
+# Utilisation de l'API pour changer le mot de passe
+url="${tower_base_url}users/${user_id}/"
+data='{"password":"'${new_password}'"}'
+
+response=$(curl -X PUT -s -k -u "${username}:${password}" -H "Content-Type: application/json" -d "${data}" "${url}")
+
+if [ $(echo "${response}" | jq -r '.status') == "200" ]; then
+    echo "Mot de passe mis à jour avec succès."
+else
+    echo "Échec de la mise à jour du mot de passe. Code de statut : $(echo "${response}" | jq -r '.status')"
+fi
